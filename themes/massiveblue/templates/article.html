@@ -7,6 +7,7 @@
   {% include '_entry_meta.html' %}
   <div class="entry-content">{{ article.content }}</div>
   {% if article.tags %}<p class="tags">标签：{% for tag in article.tags %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% endfor %}</p>{% endif %}
+  {% if article.related_posts %}<section class="related"><h3>相关文章</h3><ul>{% for r in article.related_posts %}<li><a href="{{ SITEURL }}/{{ r.url }}">{{ r.title }}</a> <time>{{ r.date.strftime('%Y-%m-%d') }}</time></li>{% endfor %}</ul></section>{% endif %}
   <nav class="pager">
     {% if article.prev_article %}<a href="{{ SITEURL }}/{{ article.prev_article.url }}">&larr; {{ article.prev_article.title }}</a>{% else %}<span></span>{% endif %}
     {% if article.next_article %}<a href="{{ SITEURL }}/{{ article.next_article.url }}">{{ article.next_article.title }} &rarr;</a>{% else %}<span></span>{% endif %}

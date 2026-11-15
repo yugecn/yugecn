@@ -19,6 +19,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
+      - name: Install Stork (search index builder)
+        run: |
+          curl -sSL -o /usr/local/bin/stork https://github.com/jameslittle230/stork/releases/download/v1.6.0/stork-ubuntu-22-04
+          chmod +x /usr/local/bin/stork
+          stork --version
       - id: pages
         uses: actions/configure-pages@v5
       - run: pelican content -s publishconf.py -o output
