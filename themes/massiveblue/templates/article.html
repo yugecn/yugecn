@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title|striptags }} - {{ SITENAME|striptags }}{% endblock %}
+{% block description %}{{ article.summary|striptags|truncate(120) }}{% endblock %}
+{% block content %}
+<article class="hentry single">
+  <h2 class="entry-title">{{ article.title }}</h2>
+  {% include '_entry_meta.html' %}
+  <div class="entry-content">{{ article.content }}</div>
+  {% if article.tags %}<p class="tags">标签：{% for tag in article.tags %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% endfor %}</p>{% endif %}
+  <nav class="pager">
+    {% if article.prev_article %}<a href="{{ SITEURL }}/{{ article.prev_article.url }}">&larr; {{ article.prev_article.title }}</a>{% else %}<span></span>{% endif %}
+    {% if article.next_article %}<a href="{{ SITEURL }}/{{ article.next_article.url }}">{{ article.next_article.title }} &rarr;</a>{% else %}<span></span>{% endif %}
+  </nav>
+</article>
+{% endblock %}

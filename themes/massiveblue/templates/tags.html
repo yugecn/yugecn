@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}标签 - {{ SITENAME|striptags }}{% endblock %}
+{% block content %}<h2>标签</h2><p class="tagcloud">{% for tag, arts in tags|sort %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }} <span class="count">{{ arts|count }}</span></a>{% endfor %}</p>{% endblock %}

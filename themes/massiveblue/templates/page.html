@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title|striptags }} - {{ SITENAME|striptags }}{% endblock %}
+{% block content %}
+<article class="hentry single"><h2 class="entry-title">{{ page.title }}</h2><div class="entry-content">{{ page.content }}</div></article>
+{% endblock %}

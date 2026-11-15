@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}zh-CN{% endblock html_lang %}">
+<head>
+{% block head %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ SITENAME|striptags }}{% endblock title %}</title>
+<meta name="description" content="{% block description %}{{ SITESUBTITLE }}{% endblock %}">
+<meta name="theme-color" content="#352f26">
+<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css">
+{% if FEED_ALL_ATOM %}<link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME|striptags }} Atom">{% endif %}
+{% endblock head %}
+</head>
+<body id="{% block body_id %}page{% endblock %}">
+<a class="skip" href="#content">跳到正文</a>
+<div id="topbar"><div class="inner">
+  <p class="tb-right">订阅 <a href="{{ FEED_DOMAIN or SITEURL }}/{{ FEED_ALL_ATOM or 'feeds/all.atom.xml' }}"><em>RSS Feed</em></a></p>
+  <p class="tb-left">{{ TOPBAR_TEXT|default('A personal weblog') }}</p>
+</div></div>
+<div id="wrap">
+  <header id="masthead">
+    <h1 id="site-name"><a rel="home" href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
+    {% if SITESUBTITLE %}<p id="site-slogan">{{ SITESUBTITLE }}</p>{% endif %}
+    <button id="menu-toggle" aria-controls="sidebar" aria-expanded="false">菜单</button>
+  </header>
+  <div id="layout">
+    <main id="content">{% block content %}{% endblock content %}</main>
+    <aside id="sidebar">
+      <form class="search" role="search" action="https://www.bing.com/search" method="get" target="_blank">
+        <input type="search" id="q" placeholder="搜索本站…" aria-label="搜索">
+        <button type="submit">Go!</button>
+      </form>
+      <nav class="nav">
+        <a href="{{ SITEURL }}/">首页</a>
+        {% for p in pages %}<a href="{{ SITEURL }}/{{ p.url }}"{% if p == page %} class="on"{% endif %}>{{ p.title }}</a>{% endfor %}
+        <a href="{{ SITEURL }}/archives.html">文章归档</a>
+        <a href="{{ SITEURL }}/tags.html">标签</a>
+      </nav>
+      {% if categories %}<h3>分类</h3>
+      <ul class="category_list">{% for cat, arts in categories %}<li><a href="{{ SITEURL }}/{{ cat.url }}"{% if cat == category %} class="on"{% endif %}>{{ cat }}</a> <span class="count">{{ arts|count }}</span></li>{% endfor %}</ul>{% endif %}
+      {% if articles %}<h3>最近文章</h3>
+      <ul class="recent_articles">{% for a in articles[:8] %}<li><a href="{{ SITEURL }}/{{ a.url }}">{{ a.title }}</a></li>{% endfor %}</ul>{% endif %}
+      {% if LINKS %}<h3>链接</h3>
+      <ul class="linklist">{% for name, link in LINKS %}<li><a href="{{ link }}">{{ name }}</a></li>{% endfor %}</ul>{% endif %}
+    </aside>
+  </div>
+  <footer id="footer">
+    <p class="foot-left">&copy; {{ COPYRIGHT_YEAR|default('2026') }} &middot; <a href="{{ SITEURL }}/">{{ SITENAME|striptags }}</a> All rights reserved.</p>
+    <p class="foot-right">Powered by <a href="https://getpelican.com/">Pelican</a> &middot; MassiveBlue 风格</p>
+  </footer>
+</div>
+<button id="totop" aria-label="回到顶部">↑</button>
+<script>
+(function(){
+  var f=document.querySelector('.search');
+  f.addEventListener('submit',function(e){e.preventDefault();var q=document.getElementById('q').value.trim();if(!q)return;
+    window.open('https://www.bing.com/search?q='+encodeURIComponent('site:{{ SEARCH_SITE|default("yugecn.github.io") }} '+q),'_blank');});
+  var b=document.getElementById('menu-toggle'),s=document.getElementById('sidebar');
+  b.addEventListener('click',function(){var o=document.body.classList.toggle('menu-open');b.setAttribute('aria-expanded',o);});
+  var t=document.getElementById('totop');
+  addEventListener('scroll',function(){t.classList.toggle('show',scrollY>600)},{passive:true});
+  t.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+})();
+</script>
+</body>
+</html>

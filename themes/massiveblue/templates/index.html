@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body_id %}front{% endblock %}
+{% block content %}
+<div class="hfeed">
+{% for article in articles_page.object_list %}
+<article class="hentry">
+  <h2 class="entry-title"><a rel="bookmark" href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+  {% include '_entry_meta.html' %}
+  <div class="entry-summary">{{ article.summary }}</div>
+  <p class="more"><a href="{{ SITEURL }}/{{ article.url }}">阅读全文 →</a></p>
+</article>
+{% endfor %}
+</div>
+{% if articles_page.has_other_pages() %}{% include 'pagination.html' %}{% endif %}
+{% endblock %}

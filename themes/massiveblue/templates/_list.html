@@ -1,0 +1,5 @@
+<ul class="archive">
+{% for article in list_articles %}
+<li><time datetime="{{ article.date.isoformat() }}">{{ article.date.strftime('%Y-%m-%d') }}</time><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></li>
+{% endfor %}
+</ul>

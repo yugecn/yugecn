@@ -1,0 +1,2 @@
+{% extends "base.html" %}
+{% block content %}<h2>作者</h2><ul class="archive">{% for a, arts in authors %}<li><a href="{{ SITEURL }}/{{ a.url }}">{{ a }}</a> <span class="count">{{ arts|count }} 篇</span></li>{% endfor %}</ul>{% endblock %}

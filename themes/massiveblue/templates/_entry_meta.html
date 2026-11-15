@@ -1,0 +1,1 @@
+<p class="published"><time datetime="{{ article.date.isoformat() }}">{{ article.date.strftime('%Y年%m月%d日') }}</time>{% if article.category %} · <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>{% endif %}</p>
