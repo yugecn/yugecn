@@ -44,7 +44,7 @@ RELATED_POSTS_MAX = 5
 
 # 评论：两种都配置时显示为两个标签页；留空则不显示
 GISCUS_REPO = "yugecn/yugecn"
-GISCUS_REPO_ID = ""        # 开启 Discussions 并安装 giscus 应用后填写
+GISCUS_REPO_ID = "MDEwOlJlcG9zaXRvcnk3NTU3Mjg1Nw=="
 GISCUS_CATEGORY = "Announcements"
-GISCUS_CATEGORY_ID = ""
+GISCUS_CATEGORY_ID = "DIC_kwDOBIEmec4DLLDM"
 DISQUS_SITENAME = ""       # Disqus 的 shortname
