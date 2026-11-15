@@ -32,13 +32,12 @@ SOCIAL = (("GitHub", "https://github.com/yugecn"),)
 DEFAULT_PAGINATION = 10
 RELATIVE_URLS = True
 
-# 插件（本地预览不含 search，它需要 stork 程序；线上构建会加上）
+# 插件；站内搜索由 Pagefind 在线上构建后生成（支持中文分词）
 PLUGINS = ["neighbors", "sitemap", "related_posts", "statistics"]
-SEARCH_ENABLED = False  # 本地预览默认关闭；线上构建在 publishconf 打开
+SEARCH_ENABLED = False  # 本地预览用 Bing；线上构建在 publishconf 打开 Pagefind
 SITEMAP = {
     "format": "xml",
     "priorities": {"articles": 0.8, "indexes": 0.6, "pages": 0.5},
     "changefreqs": {"articles": "monthly", "indexes": "daily", "pages": "monthly"},
 }
 RELATED_POSTS_MAX = 5
-STORK_INPUT_OPTIONS = {"html_selector": "main", "stemming": "None"}

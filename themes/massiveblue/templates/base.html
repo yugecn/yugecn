@@ -26,11 +26,11 @@
   <div id="layout">
     <main id="content">{% block content %}{% endblock content %}</main>
     <aside id="sidebar">
+      {% if SEARCH_ENABLED %}<div id="pf-search"></div>{% else %}
       <form class="search" role="search" action="https://www.bing.com/search" method="get" target="_blank">
-        <input type="search" id="q" placeholder="搜索本站…" aria-label="搜索" autocomplete="off"{% if SEARCH_ENABLED %} data-stork="sitesearch"{% endif %}>
+        <input type="search" id="q" placeholder="搜索本站…" aria-label="搜索">
         <button type="submit">Go!</button>
-        <div class="stork-wrap" data-stork="sitesearch-output"></div>
-      </form>
+      </form>{% endif %}
       <nav class="nav">
         <a href="{{ SITEURL }}/">首页</a>
         {% for p in pages %}<a href="{{ SITEURL }}/{{ p.url }}"{% if p == page %} class="on"{% endif %}>{{ p.title }}</a>{% endfor %}
@@ -54,7 +54,7 @@
 <script>
 (function(){
   var f=document.querySelector('.search');
-  f.addEventListener('submit',function(e){e.preventDefault();var q=document.getElementById('q').value.trim();if(!q)return;
+  if(f)f.addEventListener('submit',function(e){e.preventDefault();var q=document.getElementById('q').value.trim();if(!q)return;
     window.open('https://www.bing.com/search?q='+encodeURIComponent('site:{{ SEARCH_SITE|default("yugecn.github.io") }} '+q),'_blank');});
   var b=document.getElementById('menu-toggle'),s=document.getElementById('sidebar');
   b.addEventListener('click',function(){var o=document.body.classList.toggle('menu-open');b.setAttribute('aria-expanded',o);});
@@ -64,10 +64,11 @@
 })();
 </script>
 {% if SEARCH_ENABLED %}
-<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/stork.js"></script>
+<link rel="stylesheet" href="{{ SITEURL }}/pagefind/pagefind-ui.css">
+<script src="{{ SITEURL }}/pagefind/pagefind-ui.js"></script>
 <script>
-stork.initialize("{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/stork.wasm");
-stork.register("sitesearch","{{ SITEURL }}/search-index.st",{showProgress:false,minimumQueryLength:1});
+new PagefindUI({element:"#pf-search",baseUrl:"{{ SEARCH_BASE|default('/') }}",showImages:false,showSubResults:false,pageSize:5,resetStyles:false,
+  translations:{placeholder:"搜索本站…",clear_search:"清除",load_more:"更多结果",zero_results:"没有找到“[SEARCH_TERM]”",many_results:"找到 [COUNT] 篇",one_result:"找到 1 篇",searching:"搜索中…"}});
 </script>
 {% endif %}
 </body>

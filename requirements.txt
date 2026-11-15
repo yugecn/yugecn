@@ -1,6 +1,6 @@
 pelican[markdown]==4.12.0
 pelican-neighbors==1.2.0
 pelican-sitemap==1.2.2
-pelican-search==1.1.1
 pelican-related-posts==1.0.0
 pelican-statistics==1.0.0
+pagefind[extended]==1.6.0

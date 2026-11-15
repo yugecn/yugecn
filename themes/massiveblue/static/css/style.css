@@ -93,18 +93,10 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
   .entry-content,.entry-summary{text-align:left}
 }
 
-/* 站内搜索结果（Stork） */
-.search{position:relative}
-.stork-wrap .stork-output{position:absolute;left:0;right:0;top:100%;z-index:20;background:#fff;border:1px solid #c9c9a8;box-shadow:0 6px 18px rgba(0,0,0,.15);max-height:60vh;overflow:auto;margin-top:4px}
-.stork-wrap .stork-message{padding:6px 10px;font-size:12px;color:#777}
-.stork-wrap .stork-results{list-style:none;margin:0;padding:0}
-.stork-wrap .stork-result a{display:block;padding:8px 10px;border-top:1px solid #eee;color:#333;text-decoration:none}
-.stork-wrap .stork-result a:hover,.stork-wrap .stork-result.selected a{background:#f3f3e2}
-.stork-wrap .stork-title{font-weight:bold;color:#47601e}
-.stork-wrap .stork-excerpt{font-size:12px;color:#666;margin-top:2px}
-.stork-wrap .stork-highlight{background:#fff3a0;color:inherit}
-.stork-wrap .stork-close-button,.stork-wrap .stork-attribution{display:none}
+/* 站内搜索（Pagefind） */
+#pf-search{--pagefind-ui-scale:.72;--pagefind-ui-primary:#47601e;--pagefind-ui-text:#333;--pagefind-ui-background:#fff;--pagefind-ui-border:#c9c9a8;--pagefind-ui-tag:#f3f3e2;--pagefind-ui-border-width:1px;--pagefind-ui-border-radius:3px;--pagefind-ui-font:inherit;margin-bottom:14px}
+#pf-search mark{background:#fff3a0;color:inherit}
+@media (prefers-color-scheme:dark){#pf-search{--pagefind-ui-text:#ddd;--pagefind-ui-background:#2a2621;--pagefind-ui-border:#4a443a;--pagefind-ui-tag:#353028}}
 .related{margin:24px 0 8px;padding-top:12px;border-top:1px dashed #c9c9a8}
 .related h3{font-size:15px;color:#47601e;margin:0 0 6px}
 .related ul{margin:0;padding-left:18px}.related time{color:#999;font-size:12px}
-@media (prefers-color-scheme:dark){.stork-wrap .stork-output{background:#2a2621;border-color:#4a443a}.stork-wrap .stork-result a{color:#ddd;border-color:#3a352d}.stork-wrap .stork-result a:hover{background:#353028}.stork-wrap .stork-highlight{background:#6b5d1e}}
