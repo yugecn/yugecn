@@ -42,9 +42,8 @@ SITEMAP = {
 }
 RELATED_POSTS_MAX = 5
 
-# 评论：两种都配置时显示为两个标签页；留空则不显示
+# 评论（Giscus，存于仓库 Discussions）；GISCUS_REPO_ID 留空则不显示
 GISCUS_REPO = "yugecn/yugecn"
 GISCUS_REPO_ID = "MDEwOlJlcG9zaXRvcnk3NTU3Mjg1Nw=="
 GISCUS_CATEGORY = "Announcements"
 GISCUS_CATEGORY_ID = "DIC_kwDOBIEmec4DLLDM"
-DISQUS_SITENAME = ""       # Disqus 的 shortname

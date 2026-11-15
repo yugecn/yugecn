@@ -102,10 +102,7 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 .related ul{margin:0;padding-left:18px}.related time{color:#999;font-size:12px}
 
 /* 评论 */
-.comments{margin-top:28px;padding-top:14px;border-top:2px solid #88aa00}
-.comments h3{font-family:Georgia,serif;color:#47601e;margin:0 0 10px}
-.c-tabs{display:flex;gap:6px;margin-bottom:12px;border-bottom:1px solid #c9c9a8}
-.c-tabs button{background:none;border:1px solid transparent;border-bottom:none;padding:6px 12px;cursor:pointer;color:#666;font:inherit;border-radius:3px 3px 0 0;margin-bottom:-1px}
-.c-tabs button[aria-selected="true"]{background:#fff;border-color:#c9c9a8;color:#47601e;font-weight:bold}
-.c-hint{color:#999;font-size:13px}
-@media (prefers-color-scheme:dark){.c-tabs button[aria-selected="true"]{background:#2a2621;border-color:#4a443a}}
+.comments{background:var(--paper);border:1px solid var(--line);border-top:3px solid #88aa00;border-radius:6px;padding:1.2em 1.7em 1.4em;margin:0 0 1.6em;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.comments h3{font-family:Georgia,"Times New Roman",serif;font-size:1.25em;color:#47601e;margin:0 0 .8em;padding-bottom:.5em;border-bottom:1px dashed var(--line)}
+.comments .giscus,.comments .giscus-frame{width:100%}
+@media (max-width:760px){.comments{padding:1em 1.1em 1.1em}}
