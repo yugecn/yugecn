@@ -100,3 +100,12 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 .related{margin:24px 0 8px;padding-top:12px;border-top:1px dashed #c9c9a8}
 .related h3{font-size:15px;color:#47601e;margin:0 0 6px}
 .related ul{margin:0;padding-left:18px}.related time{color:#999;font-size:12px}
+
+/* 评论 */
+.comments{margin-top:28px;padding-top:14px;border-top:2px solid #88aa00}
+.comments h3{font-family:Georgia,serif;color:#47601e;margin:0 0 10px}
+.c-tabs{display:flex;gap:6px;margin-bottom:12px;border-bottom:1px solid #c9c9a8}
+.c-tabs button{background:none;border:1px solid transparent;border-bottom:none;padding:6px 12px;cursor:pointer;color:#666;font:inherit;border-radius:3px 3px 0 0;margin-bottom:-1px}
+.c-tabs button[aria-selected="true"]{background:#fff;border-color:#c9c9a8;color:#47601e;font-weight:bold}
+.c-hint{color:#999;font-size:13px}
+@media (prefers-color-scheme:dark){.c-tabs button[aria-selected="true"]{background:#2a2621;border-color:#4a443a}}

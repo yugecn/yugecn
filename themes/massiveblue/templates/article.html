@@ -13,4 +13,5 @@
     {% if article.next_article %}<a href="{{ SITEURL }}/{{ article.next_article.url }}">{{ article.next_article.title }} &rarr;</a>{% else %}<span></span>{% endif %}
   </nav>
 </article>
+{% include "_comments.html" %}
 {% endblock %}

@@ -1,0 +1,32 @@
+{% if GISCUS_REPO_ID or DISQUS_SITENAME %}
+<section id="comments" class="comments">
+  <h3>评论</h3>
+  <div class="c-tabs" role="tablist">
+    {% if GISCUS_REPO_ID %}<button role="tab" data-pane="c-giscus" aria-selected="true">GitHub 账号评论</button>{% endif %}
+    {% if DISQUS_SITENAME %}<button role="tab" data-pane="c-disqus"{% if not GISCUS_REPO_ID %} aria-selected="true"{% endif %}>Disqus 评论</button>{% endif %}
+  </div>
+  {% if GISCUS_REPO_ID %}<div id="c-giscus" class="c-pane">
+    <script src="https://giscus.app/client.js"
+      data-repo="{{ GISCUS_REPO }}" data-repo-id="{{ GISCUS_REPO_ID }}"
+      data-category="{{ GISCUS_CATEGORY }}" data-category-id="{{ GISCUS_CATEGORY_ID }}"
+      data-mapping="specific" data-term="{{ article.slug }}" data-strict="1"
+      data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top"
+      data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy"
+      crossorigin="anonymous" async></script>
+  </div>{% endif %}
+  {% if DISQUS_SITENAME %}<div id="c-disqus" class="c-pane"{% if GISCUS_REPO_ID %} hidden{% endif %}><div id="disqus_thread"><p class="c-hint">点开即加载 Disqus（国内网络可能需要代理）。</p></div></div>{% endif %}
+</section>
+<script>
+(function(){
+  var loaded=false;
+  function loadDisqus(){ if(loaded)return; loaded=true;
+    window.disqus_config=function(){this.page.url="{{ SITEURL }}/{{ article.url }}";this.page.identifier="{{ article.slug }}";this.language="zh";};
+    var d=document.createElement('script');d.src='https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';d.setAttribute('data-timestamp',+new Date());document.body.appendChild(d);}
+  var tabs=document.querySelectorAll('.c-tabs button');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.setAttribute('aria-selected',x===t);document.getElementById(x.dataset.pane).hidden=(x!==t);});
+    if(t.dataset.pane==='c-disqus')loadDisqus();});});
+  {% if DISQUS_SITENAME and not GISCUS_REPO_ID %}loadDisqus();{% endif %}
+})();
+</script>
+{% endif %}
