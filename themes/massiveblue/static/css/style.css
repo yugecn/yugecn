@@ -123,3 +123,13 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 #topbar .tb-nav{display:inline!important}
 .tb-nav a{margin-left:.9em;padding-left:.9em;border-left:1px solid #5a5244}
 .tb-nav a.on{color:var(--bar-ink)}
+
+/* 手机顶栏：只留导航，不换行，放不下可横向滑动 */
+@media (max-width:760px){
+  #topbar .tb-text,#topbar .tb-right{display:none!important}
+  #topbar .inner{padding:0 14px}
+  #topbar .tb-left{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #topbar .tb-left::-webkit-scrollbar{display:none}
+  #topbar .tb-nav a{margin-left:.7em;padding-left:.7em;font-size:14px}
+  #topbar .tb-nav a:first-child{margin-left:0;padding-left:0;border-left:0}
+}
