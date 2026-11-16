@@ -14,7 +14,7 @@
 <body id="{% block body_id %}page{% endblock %}">
 <a class="skip" href="#content">跳到正文</a>
 <div id="topbar"><div class="inner">
-  <p class="tb-right">订阅 <a href="{{ FEED_DOMAIN or SITEURL }}/{{ FEED_ALL_ATOM or 'feeds/all.atom.xml' }}"><em>RSS Feed</em></a></p>
+  <p class="tb-right">订阅 <a href="{{ FEED_DOMAIN or SITEURL }}/{{ FEED_ALL_ATOM or 'feeds/all.atom.xml' }}"><em>RSS</em></a></p>
   <div class="tb-left"><span class="tb-text">{{ TOPBAR_TEXT|default('A personal weblog') }}</span>
     <nav class="tb-nav"><a href="{{ SITEURL }}/">首页</a>{% for p in pages %}<a href="{{ SITEURL }}/{{ p.url }}"{% if p == page %} class="on"{% endif %}>{{ p.title }}</a>{% endfor %}<a href="{{ SITEURL }}/archives.html">文章归档</a><a href="{{ SITEURL }}/tags.html">标签</a></nav></div>
 </div></div>
