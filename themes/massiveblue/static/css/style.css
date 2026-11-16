@@ -119,6 +119,7 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 #wp-calendar .cal-nav{display:flex;justify-content:space-between;margin:.3em 0 0;font-size:.9em}
 
 /* 顶栏导航：跟在站点说明后面 */
-.tb-nav{display:inline}
+.tb-left{white-space:nowrap}
+#topbar .tb-nav{display:inline!important}
 .tb-nav a{margin-left:.9em;padding-left:.9em;border-left:1px solid #5a5244}
 .tb-nav a.on{color:var(--bar-ink)}

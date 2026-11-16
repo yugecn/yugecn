@@ -54,3 +54,7 @@ CALENDAR_SAVE_AS = "calendar.json"
 YEAR_ARCHIVE_SAVE_AS = "{date:%Y}/index.html"
 MONTH_ARCHIVE_SAVE_AS = "{date:%Y}/{date:%m}/index.html"
 DAY_ARCHIVE_SAVE_AS = "{date:%Y}/{date:%m}/{date:%d}/index.html"
+
+# 样式表版本号（按内容哈希），改样式后浏览器自动取新文件
+import hashlib as _h
+CSS_VERSION = _h.md5(open("themes/massiveblue/static/css/style.css", "rb").read()).hexdigest()[:8]

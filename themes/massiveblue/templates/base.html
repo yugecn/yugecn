@@ -7,7 +7,7 @@
 <title>{% block title %}{{ SITENAME|striptags }}{% endblock title %}</title>
 <meta name="description" content="{% block description %}{{ SITESUBTITLE }}{% endblock %}">
 <meta name="theme-color" content="#352f26">
-<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css">
+<link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css?v={{ CSS_VERSION }}">
 {% if FEED_ALL_ATOM %}<link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME|striptags }} Atom">{% endif %}
 {% endblock head %}
 </head>
