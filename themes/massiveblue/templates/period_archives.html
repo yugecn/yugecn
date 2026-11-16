@@ -1,1 +1,8 @@
-{% extends "archives.html" %}
+{% extends "base.html" %}
+{% set fmt = ['%Y年', '%Y年%-m月', '%Y年%-m月%-d日'][period|length - 1] %}
+{% set label = dates[0].date.strftime(fmt) if dates else period|join(' ') %}
+{% block title %}{{ label }} 的文章 - {{ SITENAME|striptags }}{% endblock %}
+{% block content %}
+<h2>{{ label }} 的文章</h2>
+{% set list_articles = dates %}{% include '_list.html' %}
+{% endblock %}

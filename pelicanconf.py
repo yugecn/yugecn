@@ -47,3 +47,10 @@ GISCUS_REPO = "yugecn/yugecn.github.io"
 GISCUS_REPO_ID = "MDEwOlJlcG9zaXRvcnk3NTU3Mjg1Nw=="
 GISCUS_CATEGORY = "Announcements"
 GISCUS_CATEGORY_ID = "DIC_kwDOBIEmec4DLLDM"
+
+# 侧栏归档日历：生成 calendar.json，并输出按月、按日归档页
+DIRECT_TEMPLATES = ["index", "tags", "categories", "authors", "archives", "calendar"]
+CALENDAR_SAVE_AS = "calendar.json"
+YEAR_ARCHIVE_SAVE_AS = "{date:%Y}/index.html"
+MONTH_ARCHIVE_SAVE_AS = "{date:%Y}/{date:%m}/index.html"
+DAY_ARCHIVE_SAVE_AS = "{date:%Y}/{date:%m}/{date:%d}/index.html"

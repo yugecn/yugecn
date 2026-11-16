@@ -37,6 +37,7 @@
         <a href="{{ SITEURL }}/archives.html">文章归档</a>
         <a href="{{ SITEURL }}/tags.html">标签</a>
       </nav>
+      <div id="wp-calendar" data-base="{{ SITEURL }}" aria-label="文章日历"></div>
       {% if categories %}<h3>分类</h3>
       <ul class="category_list">{% for cat, arts in categories %}<li><a href="{{ SITEURL }}/{{ cat.url }}"{% if cat == category %} class="on"{% endif %}>{{ cat }}</a> <span class="count">{{ arts|count }}</span></li>{% endfor %}</ul>{% endif %}
       {% if articles %}<h3>最近文章</h3>
@@ -61,6 +62,41 @@
   var t=document.getElementById('totop');
   addEventListener('scroll',function(){t.classList.toggle('show',scrollY>600)},{passive:true});
   t.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+})();
+</script>
+<script>
+(function(){
+  var box=document.getElementById('wp-calendar');if(!box||!window.fetch)return;
+  var base=box.getAttribute('data-base')||'',D={},keys=[],cur;
+  function p2(n){return (n<10?'0':'')+n}
+  function href(u){return base+'/'+u}
+  function draw(){
+    var y=cur[0],m=cur[1],first=new Date(y,m-1,1).getDay(),n=new Date(y,m,0).getDate();
+    var ym=y+'-'+p2(m),prev=null,next=null;
+    for(var i=0;i<keys.length;i++){var k=keys[i].slice(0,7);if(k<ym)prev=k;if(k>ym&&!next)next=k;}
+    var mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var hasMonth=keys.some(function(k){return k.slice(0,7)==ym});
+    var h='<table><caption>'+(hasMonth?'<a href="'+href(y+'/'+p2(m)+'/')+'">':'')+mn[m-1]+' '+y+(hasMonth?'</a>':'')+'</caption><thead><tr>';
+    ['S','M','T','W','T','F','S'].forEach(function(w,i){h+='<th scope="col" title="'+['周日','周一','周二','周三','周四','周五','周六'][i]+'">'+w+'</th>'});
+    h+='</tr></thead><tbody><tr>';
+    for(var c=0;c<first;c++)h+='<td></td>';
+    for(var d=1;d<=n;d++){
+      var key=ym+'-'+p2(d),a=D[key];
+      if(a){var t=a.map(function(x){return x.t}).join(' / ').replace(/"/g,'&quot;');
+        h+='<td class="has"><a href="'+(a.length==1?href(a[0].u):href(y+'/'+p2(m)+'/'+p2(d)+'/'))+'" title="'+t+'">'+d+'</a></td>';}
+      else h+='<td>'+d+'</td>';
+      if((first+d)%7==0&&d<n)h+='</tr><tr>';
+    }
+    h+='</tr></tbody></table><p class="cal-nav"><span>'+(prev?'<a href="#" data-k="'+prev+'">&laquo; '+mn[+prev.slice(5)-1].slice(0,3)+'</a>':'')+'</span><span>'+(next?'<a href="#" data-k="'+next+'">'+mn[+next.slice(5)-1].slice(0,3)+' &raquo;</a>':'')+'</span></p>';
+    box.innerHTML=h;
+    [].forEach.call(box.querySelectorAll('.cal-nav a'),function(el){el.addEventListener('click',function(e){e.preventDefault();var k=el.getAttribute('data-k');cur=[+k.slice(0,4),+k.slice(5,7)];draw();});});
+  }
+  fetch(base+'/calendar.json').then(function(r){return r.json()}).then(function(j){
+    D={};(j||[]).forEach(function(x){(D[x[0]]=D[x[0]]||[]).push({t:x[1],u:x[2]})});keys=Object.keys(D).sort();if(!keys.length)return;
+    var m=(location.pathname.match(/\/(\d{4})\/(\d{2})\//)),last=keys[keys.length-1];
+    cur=m&&keys.some(function(k){return k.slice(0,7)==m[1]+'-'+m[2]})?[+m[1],+m[2]]:[+last.slice(0,4),+last.slice(5,7)];
+    draw();
+  }).catch(function(){});
 })();
 </script>
 {% if SEARCH_ENABLED %}

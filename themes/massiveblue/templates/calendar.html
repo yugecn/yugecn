@@ -1,0 +1,1 @@
+[{%- for a in dates -%}[{{ a.date.strftime('%Y-%m-%d')|tojson }},{{ a.title|striptags|tojson }},{{ a.url|tojson }}]{{ "," if not loop.last }}{%- endfor -%}]

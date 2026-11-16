@@ -106,3 +106,13 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 .comments h3{font-family:Georgia,"Times New Roman",serif;font-size:1.25em;color:#47601e;margin:0 0 .8em;padding-bottom:.5em;border-bottom:1px dashed var(--line)}
 .comments .giscus,.comments .giscus-frame{width:100%}
 @media (max-width:760px){.comments{padding:1em 1.1em 1.1em}}
+
+/* 侧栏归档日历（WordPress 风格） */
+#wp-calendar{margin:1.4em 0 .4em}
+#wp-calendar table{width:100%;border-collapse:collapse;text-align:center;font-family:var(--sans);font-size:.95em}
+#wp-calendar caption{font-family:var(--serif);font-weight:bold;font-size:1.15em;color:var(--ink);padding-bottom:.35em}
+#wp-calendar caption a{color:inherit}
+#wp-calendar th{color:var(--muted);font-weight:normal;padding:.25em 0}
+#wp-calendar td{color:var(--muted);padding:.25em 0}
+#wp-calendar td.has a{font-weight:bold;color:var(--deep);text-decoration:underline}
+#wp-calendar .cal-nav{display:flex;justify-content:space-between;margin:.3em 0 0;font-size:.9em}
