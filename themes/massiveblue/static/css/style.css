@@ -22,7 +22,7 @@ img{max-width:100%;height:auto;border-radius:3px}
 
 #topbar{background:var(--bar);border-bottom:6px solid var(--green);color:var(--bar-ink);font-size:13px}
 #topbar .inner{max-width:960px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;gap:1em}
-#topbar p{margin:0;line-height:3em}
+#topbar p,#topbar .tb-left{margin:0;line-height:3em}
 #topbar a{color:var(--bar-link)} #topbar a:hover{color:var(--bar-ink);text-decoration:none}
 #topbar em{color:#f60;font-style:normal} #topbar a:hover em{color:#f93}
 .tb-right{order:2}
@@ -82,7 +82,8 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 
 @media (max-width:760px){
   body{font-size:15.5px}
-  #topbar .tb-left{display:none}
+  #topbar .tb-text{display:none}
+  #topbar .tb-nav a:first-child{margin-left:0;padding-left:0;border-left:0}
   #site-name{font-size:2em}
   #menu-toggle{display:block;position:absolute;right:0;top:1.8em;border:1px solid var(--line);background:var(--paper);color:var(--deep);border-radius:4px;padding:.3em .8em;font:inherit;cursor:pointer}
   #layout{grid-template-columns:1fr;gap:0}
@@ -116,3 +117,8 @@ h3.year{margin:1.6em 0 .3em;font-size:1.5em}
 #wp-calendar td{color:var(--muted);padding:.25em 0}
 #wp-calendar td.has a{font-weight:bold;color:var(--deep);text-decoration:underline}
 #wp-calendar .cal-nav{display:flex;justify-content:space-between;margin:.3em 0 0;font-size:.9em}
+
+/* 顶栏导航：跟在站点说明后面 */
+.tb-nav{display:inline}
+.tb-nav a{margin-left:.9em;padding-left:.9em;border-left:1px solid #5a5244}
+.tb-nav a.on{color:var(--bar-ink)}

@@ -15,7 +15,8 @@
 <a class="skip" href="#content">跳到正文</a>
 <div id="topbar"><div class="inner">
   <p class="tb-right">订阅 <a href="{{ FEED_DOMAIN or SITEURL }}/{{ FEED_ALL_ATOM or 'feeds/all.atom.xml' }}"><em>RSS Feed</em></a></p>
-  <p class="tb-left">{{ TOPBAR_TEXT|default('A personal weblog') }}</p>
+  <div class="tb-left"><span class="tb-text">{{ TOPBAR_TEXT|default('A personal weblog') }}</span>
+    <nav class="tb-nav"><a href="{{ SITEURL }}/">首页</a>{% for p in pages %}<a href="{{ SITEURL }}/{{ p.url }}"{% if p == page %} class="on"{% endif %}>{{ p.title }}</a>{% endfor %}<a href="{{ SITEURL }}/archives.html">文章归档</a><a href="{{ SITEURL }}/tags.html">标签</a></nav></div>
 </div></div>
 <div id="wrap">
   <header id="masthead">
@@ -31,12 +32,6 @@
         <input type="search" id="q" placeholder="搜索本站…" aria-label="搜索">
         <button type="submit">Go!</button>
       </form>{% endif %}
-      <nav class="nav">
-        <a href="{{ SITEURL }}/">首页</a>
-        {% for p in pages %}<a href="{{ SITEURL }}/{{ p.url }}"{% if p == page %} class="on"{% endif %}>{{ p.title }}</a>{% endfor %}
-        <a href="{{ SITEURL }}/archives.html">文章归档</a>
-        <a href="{{ SITEURL }}/tags.html">标签</a>
-      </nav>
       <div id="wp-calendar" data-base="{{ SITEURL }}" aria-label="文章日历"></div>
       {% if categories %}<h3>分类</h3>
       <ul class="category_list">{% for cat, arts in categories %}<li><a href="{{ SITEURL }}/{{ cat.url }}"{% if cat == category %} class="on"{% endif %}>{{ cat }}</a> <span class="count">{{ arts|count }}</span></li>{% endfor %}</ul>{% endif %}
