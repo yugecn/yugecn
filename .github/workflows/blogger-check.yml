@@ -1,0 +1,25 @@
+name: Blogger credential check
+on: workflow_dispatch
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          CID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          CSEC: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          RT: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.parse, urllib.request
+          d = urllib.parse.urlencode({"client_id": os.environ["CID"], "client_secret": os.environ["CSEC"],
+              "refresh_token": os.environ["RT"], "grant_type": "refresh_token"}).encode()
+          tok = json.load(urllib.request.urlopen("https://oauth2.googleapis.com/token", d))["access_token"]
+          print("token ok")
+          base = "https://www.googleapis.com/blogger/v3/blogs/226870845379784330/posts/"
+          h = {"Authorization": "Bearer " + tok, "Content-Type": "application/json"}
+          r = urllib.request.Request(base + "?isDraft=true", json.dumps({"title": "check", "content": "check"}).encode(), headers=h, method="POST")
+          pid = json.load(urllib.request.urlopen(r))["id"]
+          print("draft created", pid)
+          urllib.request.urlopen(urllib.request.Request(base + pid, headers=h, method="DELETE"))
+          print("draft deleted; write access OK")
+          PY
