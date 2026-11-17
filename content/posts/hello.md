@@ -7,26 +7,26 @@ Summary: 不花一分钱、不租服务器，用 Pelican + GitHub Pages 搭一�
 
 新博客开张，第一篇就写写它是怎么搭起来的。
 
-整套下来**不花一分钱、不用租服务器、不用装数据库**。写文章就是写一个文本文件，交到 GitHub 上，一两分钟后网站自己更新。下面尽量写得细一点，没碰过建站的朋友也能照着做。
+整套下来不花一分钱，不用租服务器，也不用装数据库。写文章就是写一个文本文件，交到 GitHub 上，一两分钟后网站自己更新。下面尽量写细一点，没碰过建站的朋友也能照着做。
 
 ## 一、先弄懂几个词
 
-- **静态博客**：网站就是一堆现成的 HTML 网页，没有后台、没有数据库。好处是快、安全、免费托管；代价是评论、搜索这类“动”的功能要借助外部服务。
+- **静态博客**：网站就是一堆现成的 HTML 网页，没有后台，也没有数据库。好处是快、安全、能免费托管；代价是评论、搜索这类“动”的功能得借外部服务。
 - **Pelican**：一个用 Python 写的静态博客生成器。你写 Markdown 文本，它帮你套上主题，生成整个网站。
 - **Markdown**：一种很简单的写作格式。`## 标题` 就是标题，`**加粗**` 就是加粗，几分钟就能学会。
 - **GitHub**：放代码的网站，这里用来放博客的“源文件”。
 - **GitHub Pages**：GitHub 免费提供的网页托管，地址就是 `用户名.github.io`。
 - **GitHub Actions**：GitHub 免费的自动化流水线。每次你提交文章，它自动帮你生成网站并发布。
 
-一句话概括：**我写 Markdown → 提交到 GitHub → Actions 用 Pelican 生成网页 → Pages 把它放到网上**。
+整个流程：我写 Markdown → 提交到 GitHub → Actions 用 Pelican 生成网页 → Pages 把它放到网上。
 
 ## 二、准备工作
 
 1. 注册一个 GitHub 账号，比如我的是 `yugecn`；
-2. 新建一个**公开**仓库，名字必须是 `用户名.github.io`，比如 `yugecn.github.io`。这样网站地址就是 `https://yugecn.github.io/`；
+2. 新建一个公开仓库，名字必须是 `用户名.github.io`，比如 `yugecn.github.io`。这样网站地址就是 `https://yugecn.github.io/`；
 3. 仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。
 
-为什么要公开？免费账号的 GitHub Pages 只能用公开仓库。博客本来就是给人看的，公开没关系，但**千万别把密码、密钥写进仓库**，后面会讲密钥放哪里。
+为什么要公开？免费账号的 GitHub Pages 只能用公开仓库。博客本来就是给人看的，公开没关系，但**千万别把密码、密钥写进仓库**，密钥放哪里后面会讲。
 
 ## 三、仓库里都有什么
 
@@ -80,19 +80,19 @@ Summary: 一两句话的摘要，会显示在首页列表里。
 
 文章网址的格式是 `年/月/Slug.html`，比如这篇就是 `/2026/11/hello-world.html`。
 
-**图片**：把图片放进 `content/images/2026/`，文中用 `{static}/images/2026/文件名.jpg` 引用。`{static}` 是 Pelican 的写法，它会自动换成正确的地址。图片记得先压缩一下，手机原图动辄好几 MB，打开会很慢。
+图片：把图片放进 `content/images/2026/`，文中用 `{static}/images/2026/文件名.jpg` 引用。`{static}` 是 Pelican 的写法，它会自动换成正确的地址。图片记得先压缩一下，手机原图动辄好几 MB，打开会很慢。
 
 ## 五、不用电脑也能发
 
-**方法一：直接在 GitHub 网页上发。** 手机浏览器打开仓库，进 `content/posts`，点 **Add file → Create new file**，文件名填 `xxx.md`，贴上头部信息和正文，点 **Commit changes**。一两分钟后网站就更新了。
+方法一：直接在 GitHub 网页上发。 手机浏览器打开仓库，进 `content/posts`，点 **Add file → Create new file**，文件名填 `xxx.md`，贴上头部信息和正文，点 **Commit changes**。一两分钟后网站就更新了。
 
-**方法二：电脑上用编辑器写好再推。** 熟悉 Git 的话，本地写完 `git push` 就行。
+方法二：电脑上用编辑器写好再推。 熟悉 Git 的话，本地写完 `git push` 就行。
 
-提交之后，可以在仓库的 **Actions** 标签页看到一个正在跑的任务，绿色对勾就是发布成功，红叉就是出错了，点进去能看原因。最常见的错误是头部信息格式写错，比如冒号用了中文全角“：”。
+提交之后，仓库的 Actions 标签页里会有一个正在跑的任务。绿色对勾是发布成功，红叉是出错了，点进去能看原因。最常见的错误是头部信息格式写错，比如冒号用了中文全角“：”。
 
 ## 六、在自己电脑上预览（可选）
 
-想发之前先看看效果，可以在电脑上装 Python，然后：
+想发之前看看效果，可以在电脑上装 Python，然后运行：
 
 ```
 pip install -r requirements.txt
@@ -121,10 +121,10 @@ pelican content -l -r
 - `templates/` 里是网页模板，比如 `article.html` 是文章页、`index.html` 是首页、`base.html` 是所有页面共用的外框；
 - `static/css/style.css` 是样式，颜色、字体、间距都在这里改。
 
-几个小优化：
+另外做了几处小改动：
 
 - **手机适配**：手机上顶栏只留导航，侧栏挪到正文下面；
-- **防缓存**：样式表地址后面带一个版本号，是按 CSS 内容算出来的。改了样式，浏览器会自动拿新的，不用读者手动强制刷新；
+- **防缓存**：样式表地址后面带一个按 CSS 内容算出的版本号。改了样式，浏览器会自动拿新的，读者不用强制刷新；
 - 每篇文章显示字数和阅读时长，文末有上一篇、下一篇和相关文章。
 
 主题的基本信息在 `pelicanconf.py` 里改：
@@ -182,9 +182,9 @@ SITEMAP = {
 ### 3. related_posts：相关文章
 
 - **安装**：`pelican-related-posts`
-- **作用**：根据**标签**找出相似的文章，显示在文末。
+- **作用**：根据标签找出相似的文章，显示在文末。
 - **配置**：`RELATED_POSTS_MAX = 5`，最多显示 5 篇。
-- **提示**：它靠标签匹配，所以**标签要认真打**。两篇文章有共同标签才会互相推荐。
+- **提示**：它靠标签匹配，两篇文章有共同标签才会互相推荐，所以标签要认真打。
 
 ### 4. statistics：字数和阅读时长
 
@@ -194,7 +194,7 @@ SITEMAP = {
 
 ### 5. 站内搜索：Pagefind
 
-一开始用的是 Pelican 官方的 search 插件（背后是 Stork），后来发现它**不会给中文分词**，搜两个字的词经常搜不到，就换成了 Pagefind。
+一开始用的是 Pelican 官方的 search 插件（背后是 Stork），后来发现它不会给中文分词，搜两个字的词经常搜不到，就换成了 Pagefind。
 
 - **安装**：`requirements.txt` 里加 `pagefind[extended]`。`extended` 版本才带中文分词。
 - **作用**：网站生成后，扫一遍所有网页，建一个搜索索引。读者在搜索框打字时，浏览器直接查这个索引，不需要服务器。
@@ -208,7 +208,7 @@ python -m pagefind --site output
 
 ## 十、评论区和留言板：Giscus
 
-静态博客没有数据库，评论存哪？答案是存在 GitHub 仓库的 **Discussions（讨论区）** 里，用的工具叫 Giscus。
+静态博客没有数据库，评论存哪？答案是存在 GitHub 仓库的 Discussions（讨论区）里，用的工具叫 Giscus。
 
 设置步骤：
 
@@ -230,7 +230,7 @@ GISCUS_CATEGORY_ID = "……"
 
 试过 Giscus 加 Disqus 双评论，Disqus 国内打不开还带广告，最后只留了 Giscus，也关掉了文章底部的表情反应，看着更清爽。
 
-**留言板**就是一个独立页面，也挂 Giscus。在 `content/pages/guestbook.md` 写：
+留言板就是一个独立页面，也挂 Giscus。在 `content/pages/guestbook.md` 写：
 
 ```
 Title: 留言板
@@ -272,7 +272,7 @@ CATEGORY_FEED_ATOM = "feeds/{slug}.atom.xml"
 
 这是后来加的：每次发新文，全文自动发一份到我的老 Blogger。流程最后一步跑 `tools/blogger_sync.py`，需要三把 Google 授权钥匙。详细过程和踩过的坑单独写了一篇：[把 Pelican 博客全文自动同步到 Blogger]({filename}sync-to-blogger.md)。
 
-这里只强调一点：**钥匙、密码一律放在仓库 Settings → Secrets and variables → Actions 里**，流水线运行时才读取，网页上谁也看不到，绝不写进代码。
+这里只强调一点：**钥匙和密码一律放在仓库 Settings → Secrets and variables → Actions 里**，流水线运行时才读取，网页上谁也看不到，绝不写进代码。
 
 ## 十四、常见问题
 
@@ -288,6 +288,6 @@ CATEGORY_FEED_ATOM = "feeds/{slug}.atom.xml"
 
 ## 十五、一点体会
 
-折腾下来，最喜欢的是**内容完全在自己手里**：每篇文章就是一个文本文件，存在 GitHub 上，有完整的修改历史，想搬到哪都行。老博客丢过一次，这次再也不想把文字交给别人保管了。
+折腾下来，我最喜欢的是内容完全在自己手里：每篇文章就是一个文本文件，存在 GitHub 上，有完整的修改历史，想搬到哪都行。老博客丢过一次，这次再也不想把文字交给别人保管了。
 
 你好，世界。
