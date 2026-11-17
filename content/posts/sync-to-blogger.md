@@ -9,16 +9,16 @@ Summary: 主站在 GitHub Pages，每次发新文自动把全文推到 yugecn.bl
 
 ## 想要的效果
 
-- **全文同步**，不是摘要加“阅读全文”链接
-- **不加“本文首发于……”之类的注记**
-- **只同步以后的新文**，主站旧文不搬
+- 全文同步，不是摘要加“阅读全文”链接
+- 不加“本文首发于……”之类的注记
+- 只同步以后的新文，主站旧文不搬
 - 改了文章，Blogger 那边跟着更新，而不是再发一篇
 
 全文同步的代价心里有数：同一篇内容出现在两个站，Google 只会挑一边收录。无所谓，两边都是我的。
 
 ## 思路
 
-博客本来就是 push 到 `master` 后由 GitHub Actions 构建、部署。只要在部署流程最后加一步：
+博客本来就是 push 到 `master` 后由 GitHub Actions 构建、部署，只要在部署流程最后加一步：
 
 1. Pelican 构建完，脚本读 `output/` 里每篇文章的 HTML，取出正文部分；
 2. 把正文里的图片、链接改成主站的绝对地址（Blogger 那边不存图，直接引用主站的）；
@@ -42,7 +42,7 @@ Summary: 主站在 GitHub Pages，每次发新文自动把全文推到 yugecn.bl
 
 ## 三把钥匙
 
-脚本要替我往 Blogger 发文，得有 Google 的授权，一共三样东西，都存在仓库的 **Settings → Secrets and variables → Actions** 里，不进代码：
+脚本要替我往 Blogger 发文，得有 Google 的授权，一共三样东西，都存在仓库的 Settings → Secrets and variables → Actions 里，不进代码：
 
 - `BLOGGER_CLIENT_ID`：OAuth 客户端 ID
 - `BLOGGER_CLIENT_SECRET`：客户端密钥
@@ -50,7 +50,7 @@ Summary: 主站在 GitHub Pages，每次发新文自动把全文推到 yugecn.bl
 
 拿钥匙的步骤：
 
-1. 去 Google Cloud 控制台新建一个项目，在 **API 和服务 → 库** 里启用 **Blogger API v3**；
+1. 去 Google Cloud 控制台新建一个项目，在「API 和服务 → 库」里启用 Blogger API v3；
 2. 配置 OAuth 同意屏幕，用户类型选「外部」，然后**一定要点「发布应用」改成正式版**。停在测试状态的话，刷新令牌 7 天就失效；
 3. 新建 OAuth 客户端，类型选「Web 应用」，重定向 URI 填 `https://developers.google.com/oauthplayground`，记下 ID 和密钥；
 4. 打开 [OAuth Playground](https://developers.google.com/oauthplayground)，右上角齿轮里勾上「Use your own OAuth credentials」并填入 ID 和密钥，再授权 Blogger 权限，换出 Refresh token。
@@ -59,15 +59,15 @@ Summary: 主站在 GitHub Pages，每次发新文自动把全文推到 yugecn.bl
 
 **令牌被 Google 拒绝（invalid_grant）。** 第一次拿到的刷新令牌死活用不了。原因是 Playground 齿轮里「Use your own OAuth credentials」没勾，令牌其实是发给 Google 自己的测试客户端的，跟我的客户端对不上。
 
-**齿轮里找不到保存按钮。** 本来就没有，填完自动生效，点 Close 关掉就行。
+**齿轮里找不到保存按钮。** 本来就没有，填完自动生效，点 Close 就行。
 
-**授权完了却没有 Refresh token。** 齿轮里还有两个选项：Access type 要选 **Offline**，Force prompt 选 **Consent Screen**。还不行就去 Google 账号的「第三方应用」里删掉旧授权再来一遍。
+**授权完了却没有 Refresh token。** 齿轮里还有两个选项：Access type 要选 Offline，Force prompt 选 Consent Screen。还不行就去 Google 账号的「第三方应用」里删掉旧授权再来一遍。
 
 **客户端对不上号。** 折腾中途删过一个客户端又新建了一个，GitHub 里存的还是旧 ID。三把钥匙必须来自同一个客户端：ID、密钥、以及用这对 ID 和密钥换出来的令牌，缺一不可。
 
 **密钥只能看一次。** 客户端密钥创建后，后台只显示末尾几位，再也看不到全文。创建时就该直接填进 GitHub。
 
-**通行密钥那一步只能本人来。** 授权时 Google 要求用通行密钥确认身份，这步谁也替不了，自己在电脑上点。
+**通行密钥那一步只能本人来。** 授权时 Google 要求用通行密钥确认身份，这步只能自己在电脑上点。
 
 ## 结果
 
