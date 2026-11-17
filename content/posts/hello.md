@@ -1,4 +1,4 @@
-Title: 你好，世界：这个博客是怎么搭起来的
+Title: 零成本搭一个自己的博客：Pelican + GitHub Pages 小白全攻略
 Date: 2026-11-15 15:30
 Category: 折腾
 Tags: Pelican, GitHub Pages, 建站, 插件, 新手教程
