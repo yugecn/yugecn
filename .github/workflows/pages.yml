@@ -4,7 +4,7 @@ on:
     branches: [master]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -26,6 +26,24 @@ jobs:
           SITEURL: ${{ steps.pages.outputs.base_url }}
       - name: Build search index (Pagefind, Chinese segmentation)
         run: python -m pagefind --site output
+      - name: Sync new posts to Blogger
+        if: github.event_name == 'push'
+        continue-on-error: true
+        env:
+          SITEURL: ${{ steps.pages.outputs.base_url }}
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+        run: |
+          python tools/blogger_sync.py
+          if [ -n "$(git status --porcelain .blogger-sync.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
+            git add .blogger-sync.json
+            git commit -m "Update Blogger sync state [skip ci]"
+            git pull --rebase
+            git push
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: output
