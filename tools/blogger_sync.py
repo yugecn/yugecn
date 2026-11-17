@@ -104,9 +104,9 @@ def load_articles():
 
 def token():
     data = urllib.parse.urlencode({
-        "client_id": os.environ["BLOGGER_CLIENT_ID"],
-        "client_secret": os.environ["BLOGGER_CLIENT_SECRET"],
-        "refresh_token": os.environ["BLOGGER_REFRESH_TOKEN"],
+        "client_id": os.environ["BLOGGER_CLIENT_ID"].strip(),
+        "client_secret": os.environ["BLOGGER_CLIENT_SECRET"].strip(),
+        "refresh_token": os.environ["BLOGGER_REFRESH_TOKEN"].strip(),
         "grant_type": "refresh_token",
     }).encode()
     with urllib.request.urlopen("https://oauth2.googleapis.com/token", data) as r:

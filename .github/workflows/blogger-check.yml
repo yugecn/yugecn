@@ -10,10 +10,15 @@ jobs:
           RT: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
         run: |
           python3 - <<'PY'
-          import json, os, urllib.parse, urllib.request
-          d = urllib.parse.urlencode({"client_id": os.environ["CID"], "client_secret": os.environ["CSEC"],
-              "refresh_token": os.environ["RT"], "grant_type": "refresh_token"}).encode()
-          tok = json.load(urllib.request.urlopen("https://oauth2.googleapis.com/token", d))["access_token"]
+          import json, os, urllib.error, urllib.parse, urllib.request
+          e = {k: os.environ[k].strip() for k in ("CID", "CSEC", "RT")}
+          print("lengths", {k: len(v) for k, v in e.items()}, "raw", {k: len(os.environ[k]) for k in e}, "cid_suffix_ok", e["CID"].endswith(".apps.googleusercontent.com"))
+          d = urllib.parse.urlencode({"client_id": e["CID"], "client_secret": e["CSEC"],
+              "refresh_token": e["RT"], "grant_type": "refresh_token"}).encode()
+          try:
+              tok = json.load(urllib.request.urlopen("https://oauth2.googleapis.com/token", d))["access_token"]
+          except urllib.error.HTTPError as x:
+              print("token error", x.read().decode()); raise
           print("token ok")
           base = "https://www.googleapis.com/blogger/v3/blogs/226870845379784330/posts/"
           h = {"Authorization": "Bearer " + tok, "Content-Type": "application/json"}
